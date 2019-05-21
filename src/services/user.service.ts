@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
-  getHello(): string {
+  findOneByEmailAndPassword(email: String, password: String): string {
     return 'Hello World!';
   }
 }

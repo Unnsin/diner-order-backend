@@ -1,10 +1,12 @@
-import { Controller, Get, Req, Post, Delete } from '@nestjs/common';
+import { Controller, Get, Req, Post, Delete, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/products')
 export class ProductsController {
 
     @Get()
+    @UseGuards(AuthGuard())
     findAll(@Req() request: Request): string {
         return 'This action returns all products';
     }
