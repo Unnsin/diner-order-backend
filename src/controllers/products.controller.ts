@@ -1,23 +1,24 @@
-import { Controller, Get, Req, Post, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Post, Delete } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthGuard } from '@nestjs/passport';
+import { ProductService } from '../services/product.service'
+import ProductType from '../types/product.type'
 
 @Controller('api/products')
 export class ProductsController {
-
+    constructor(private readonly productService: ProductService) {}
+    
     @Get()
-    @UseGuards(AuthGuard())
-    findAll(@Req() request: Request): string {
-        return 'This action returns all products';
+    findAll(@Req() request: Request): Promise<ProductType[]> {
+        return this.productService.findAll()
     }
 
     @Post()
-    createNew(@Req() request: Request):any {
-        return 'Create new product'
+    createNew(@Req() request: Request): Promise<ProductType> {
+        return this.productService.createNew(request.body)
     }
 
     @Delete()
     delete(@Req() request: Request): any {
-        return 'delete product'
+        return this.productService.delete(request)
     }
 }

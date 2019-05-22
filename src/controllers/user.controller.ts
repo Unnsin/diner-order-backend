@@ -1,21 +1,14 @@
 import { Controller, Get, Req, Post, Delete } from '@nestjs/common';
 import { Request } from 'express';
+import { UserService } from '../services/user.service'
+import UserType from '../types/user.type'
 
 @Controller('api/users')
 export class UserController {
+    constructor(private readonly userService: UserService) {}
 
     @Get()
-    findAll(@Req() request: Request): string {
-        return 'This action returns all users';
-    }
-
-    @Post()
-    createNew(@Req() request: Request):any {
-        return 'Create new user'
-    }
-
-    @Delete()
-    delete(@Req() request: Request): any {
-        return 'delete product'
+    findAll(@Req() request: Request): Promise<UserType[]> {
+        return this.userService.findAll()
     }
 }
