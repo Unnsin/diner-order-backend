@@ -14,12 +14,12 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(email, password): Promise<string> {
+  async signIn(email, password): Promise<any> {
     const userObj = await this.usersService.findOneByEmail(email);
     if (userObj) {
       if(bcrypt.compareSync(password, userObj.password)){
         const user: jwtPayload = { email, password: userObj.password };
-        return this.jwtService.sign(user);
+        return { token: this.jwtService.sign(user) };
       } else {
         throw new UnauthorizedException();
       }
@@ -28,9 +28,9 @@ export class AuthService {
     }
   }
 
-  async register(data): Promise<string> {
+  async register(data): Promise<any> {
     const user = await this.usersService.register(data)
-    return this.jwtService.sign({ email: user.email, password: user.password })
+    return { token: this.jwtService.sign({ email: user.email, password: user.password }) }
   }
 
   async validateUser(payload: jwtPayload): Promise<UserType> {
