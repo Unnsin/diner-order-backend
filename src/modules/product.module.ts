@@ -5,6 +5,7 @@ import { ProductSchema } from '../schemas/product.schema'
 import { ProductService } from '../services/product.service'
 import { AuthModule } from '../modules/auth.module'
 
+
 @Module({
   imports: [
     MongooseModule.forFeature([{name: 'Product', schema: ProductSchema}]),

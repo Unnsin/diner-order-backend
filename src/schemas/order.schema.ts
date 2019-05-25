@@ -5,4 +5,5 @@ export const OrderSchema = new mongoose.Schema({
     totalPrice: Number,
     products: [ProductSchema],
     adress: String,
+    status: String,
 })

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose'
 import * as bcrypt from 'bcrypt'
 import UserType from '../types/user.type'
 
+const saltRounds = 10
 
 @Injectable()
 export class UserService {
@@ -14,12 +15,14 @@ export class UserService {
   }
 
   async register(data): Promise<UserType> {
-    const password = await bcrypt.hash(data.password, 10)
+    var salt = bcrypt.genSaltSync(saltRounds);
+    var password = bcrypt.hashSync(data.password, salt);
     const createUser = new this.userModel({ ...data, password })
     return await createUser.save()
   }
   
-  findOneByEmail(email: String, password: String): UserType {
-    return this.userModel.find({ email, password });
+  findOneByEmail(email: String): UserType {
+    return this.userModel.findOne({ email }).exec();
   }
+
 }

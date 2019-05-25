@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Post, Delete } from '@nestjs/common';
+import { Controller, Get, Req, Post, Delete, Param } from '@nestjs/common';
 import { Request } from 'express';
 import { OrderService } from '../services/order.service'
 import OrderType from '../types/order.type'
@@ -19,6 +19,16 @@ export class OrderController {
 
     @Delete()
     delete(@Req() request: Request): any {
-        return this.orderService.delete(request.body.index)
+        return this.orderService.delete(request.body.id)
+    }
+
+    @Get('delivery/:id')
+    delivery(@Param('id') id: string): any {
+        return this.orderService.delivery(id)
+    }
+
+    @Get(':id')
+    getOrderById(@Param('id') id: String): any {
+        return this.orderService.getById(id)
     }
 }

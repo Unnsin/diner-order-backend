@@ -6,6 +6,7 @@ import { UnauthorizedException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt' 
 import UserType from '../types/user.type'
 
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -14,11 +15,14 @@ export class AuthService {
   ) {}
 
   async signIn(email, password): Promise<string> {
-    const newPassword = await bcrypt.hash(password, 10)
-    const user: jwtPayload = { email, password: newPassword };
-    const userObject = this.usersService.findOneByEmail(email, newPassword);
-    if (!!userObject) {
-      return this.jwtService.sign(user);
+    const userObj = await this.usersService.findOneByEmail(email);
+    if (userObj) {
+      if(bcrypt.compareSync(password, userObj.password)){
+        const user: jwtPayload = { email, password: userObj.password };
+        return this.jwtService.sign(user);
+      } else {
+        throw new UnauthorizedException();
+      }
     } else {
       throw new UnauthorizedException();
     }
@@ -30,6 +34,6 @@ export class AuthService {
   }
 
   async validateUser(payload: jwtPayload): Promise<UserType> {
-    return await this.usersService.findOneByEmail(payload.email, payload.password);
+    return await this.usersService.findOneByEmail(payload.email);
   }
 }

@@ -16,7 +16,11 @@ export class ProductService {
     return await createProduct.save()
   }
 
-  delete(index): any {
+  async delete(id): Promise<any> {
+    return await this.productModel.findByIdAndRemove({ _id:id })
+  }
 
+  async getProductById(id): Promise<ProductType> {
+    return await this.productModel.findById(id)
   }
 }
