@@ -29,6 +29,7 @@
     "@nestjs/platform-fastify": "^6.2.4",
     "bcrypt": "^3.0.6",
     "fastify-static": "^2.4.0",
+    "lodash": "^4.17.11",
     "mongoose": "^5.5.10",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",

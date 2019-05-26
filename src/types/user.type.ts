@@ -1,4 +1,5 @@
 export default class User {
+    _id: String;
     name: String;
     lname: String;
     login: String;

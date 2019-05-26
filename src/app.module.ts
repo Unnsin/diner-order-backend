@@ -6,6 +6,7 @@ import { ProductModule } from './modules/product.module'
 import { AuthModule } from './modules/auth.module'
 import { OrderModule } from './modules/order.module'
 import { UserModule } from './modules/user.module'
+import {BusketModule} from './modules/busket.module'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from './modules/user.module'
     AuthModule,
     OrderModule,
     UserModule,
+    BusketModule,
   ],
   controllers: [
     AppController,

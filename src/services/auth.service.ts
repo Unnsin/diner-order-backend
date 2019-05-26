@@ -4,6 +4,7 @@ import { UserService } from './user.service'
 import { jwtPayload } from '../interfaces/jwt-payload.interface'
 import { UnauthorizedException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt' 
+import * as _ from 'lodash'
 import UserType from '../types/user.type'
 
 
@@ -19,7 +20,10 @@ export class AuthService {
     if (userObj) {
       if(bcrypt.compareSync(password, userObj.password)){
         const user: jwtPayload = { email, password: userObj.password };
-        return { token: this.jwtService.sign(user) };
+        return {
+          token: this.jwtService.sign(user), 
+          userId: userObj._id, 
+        };
       } else {
         throw new UnauthorizedException();
       }

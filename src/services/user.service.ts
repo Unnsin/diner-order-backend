@@ -25,4 +25,8 @@ export class UserService {
     return this.userModel.findOne({ email }).exec();
   }
 
+  async getUserDetail(email: String): Promise<any> {
+    return await this.userModel.findOne({ email }).exec();
+  }
+
 }

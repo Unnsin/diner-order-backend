@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Post, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Post, Delete, UseGuards, Headers, Body } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '../services/user.service'
@@ -6,7 +6,9 @@ import UserType from '../types/user.type'
 
 @Controller('api/users')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService,
+    ) {}
 
     @Get()
     @UseGuards(AuthGuard())
