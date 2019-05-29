@@ -38,7 +38,7 @@ export class BusketService {
     return await this.busketModel.findOne({ userId: userId }, (err, document) => {
         if(err) {}
         const index = document.products.indexOf(productId)
-        document.products = document.products.splice(index, 1)
+        document.products.splice(index, 1)
         document.save()
     })
   }
