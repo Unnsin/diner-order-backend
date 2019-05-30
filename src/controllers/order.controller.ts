@@ -17,11 +17,6 @@ export class OrderController {
         return this.orderService.createNew(request.body);
     }
 
-    @Delete()
-    delete(@Req() request: Request): any {
-        return this.orderService.delete(request.body.id)
-    }
-
     @Get('delivery/:id')
     delivery(@Param('id') id: string): any {
         return this.orderService.delivery(id)
@@ -30,5 +25,10 @@ export class OrderController {
     @Get(':id')
     getOrderById(@Param('id') id: String): any {
         return this.orderService.getById(id)
+    }
+
+    @Get('/delete/:id')
+    deleteOrderById(@Param('id') id: String):any {
+        return this.orderService.delete(id)
     }
 }
