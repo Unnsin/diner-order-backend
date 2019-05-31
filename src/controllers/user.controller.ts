@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Post, Delete, UseGuards, Headers, Body } from '@nestjs/common';
+import { Controller, Get, Req, Post, Delete, UseGuards, Headers, Body, Param } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '../services/user.service'
@@ -9,6 +9,12 @@ export class UserController {
     constructor(
         private readonly userService: UserService,
     ) {}
+
+    @Get(':id')
+    getUSerById(@Param('id') id: string) {
+        return this.userService.getUserDetail(id)
+    }
+
 
     @Get()
     @UseGuards(AuthGuard())
